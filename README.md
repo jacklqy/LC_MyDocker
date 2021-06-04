@@ -1,9 +1,10 @@
 # LC_MyDocker
 
-第一章、Docker 安装
+# 第一章、Docker 安装
 
 #在root 用户下
-第一步 卸载旧的安装包
+
+# 第一步 卸载旧的安装包
 
  yum remove docker \
                   docker-client \
@@ -14,10 +15,11 @@
                   docker-logrotate \
                   docker-engine
                   
-第二步  安装需要的安装包
+# 第二步  安装需要的安装包
 
 yum install -y yum-utils
-第三步 设置镜像的仓库
+
+# 第三步 设置镜像的仓库
 
  yum-config-manager \
     --add-repo \
@@ -33,11 +35,11 @@ yum-config-manager \
 
 yum makecache fast 
 
-第四步# 安装docker相关的
+# 第四步# 安装docker相关的
 
  yum install docker-ce docker-ce-cli containerd.io (可能会出错，多试几次)
  
- 第五步启动docker 服务
+ # 第五步启动docker 服务
  
  systemctl start docker
  
@@ -45,7 +47,7 @@ yum makecache fast
  
  docker --version
  
- 第六步 hello world 
+ # 第六步 hello world 
  
  docker run hello-world
  
@@ -58,7 +60,7 @@ docker search aspnet
 docker pull mcr.microsoft.com/dotnet/core/aspnet:latest
 
 
-第二章、Docker 卸载
+# 第二章、Docker 卸载
 
 # 卸载依赖
 
@@ -69,7 +71,7 @@ yum remove docker-ce docker-ce-cli containerd.io
 rm -rf /var/lib/docker
 
 
-第三章、Docker镜像相关指令
+# 第三章、Docker镜像相关指令
 
 1  docker镜像基本命令：
 
@@ -148,7 +150,7 @@ docker tag 860c279d2fec runoob/centos:dev
 docker tag 镜像ID，这里是 860c279d2fec ,用户名称、镜像源名(repository name)和新的标签名(tag)。
 
 
-第四章、 Docker容器基本命令
+# 第四章、 Docker容器基本命令
 
 查看全部命令
 docker
@@ -243,7 +245,7 @@ $ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
 $ docker import http://example.com/exampleimage.tgz example/imagerepo
 
 
-第五章、Docker 仓库管理
+# 第五章、Docker 仓库管理
 1 注册-登录
 https://hub.docker.com
 eleven202001
@@ -262,7 +264,7 @@ docker pull nginx
 docker push nginx-8081-8082:vCustom2（权限没成功）
 
 
-第六章、Dockerfile指令
+# 第六章、Dockerfile指令
 FROM：指定基础镜像，必须为第一个命令
 
 格式：
@@ -430,7 +432,7 @@ ONBUILD：
 　　当所构建的镜像被用做其它镜像的基础镜像，该镜像中的触发器将会被钥触发
 
 
-第七章、Docker Compose
+# 第七章、Docker Compose
 Compose 简介
 Compose 是用于定义和运行多容器 Docker 应用程序的工具。通过 Compose，您可以使用 YML 文件来配置应用程序需要的所有服务。然后，使用一个命令，就可以从 YML 文件配置中创建并启动所有服务。
 YAML教程 https://www.runoob.com/w3cnote/yaml-intro.html  
@@ -768,7 +770,7 @@ services:
       - "/localhost/data:/var/lib/postgresql/data"
 
  
-第八章、Swarm 集群管理
+# 第八章、Swarm 集群管理
 简介
 Docker Swarm 是 Docker 的集群管理工具。它将 Docker 主机池转变为单个虚拟 Docker 主机。 Docker Swarm 提供了标准的 Docker API，所有任何已经与 Docker 守护程序通信的工具都可以使用 Swarm 轻松地扩展到多个主机。
 支持的工具包括但不限于以下各项：
