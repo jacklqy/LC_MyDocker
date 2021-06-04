@@ -1,0 +1,11 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">IndexRedis Welcome2222</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<h3>ViewTime:@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss fff")</h3>
+<h2>后台Action时间：@base.ViewBag.Now</h2>
+<h2>DistributedCacheNow时间：@base.ViewBag.DistributedCacheNow</h2>
