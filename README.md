@@ -4,6 +4,7 @@
 
 #在root 用户下
 第一步 卸载旧的安装包
+
  yum remove docker \
                   docker-client \
                   docker-client-latest \
@@ -14,94 +15,156 @@
                   docker-engine
                   
 第二步  安装需要的安装包
+
 yum install -y yum-utils
 第三步 设置镜像的仓库
+
  yum-config-manager \
     --add-repo \
     https://download.docker.com/linux/centos/docker-ce.repo  --默认是国外的
 
-#如果没有vpn 建议安装阿里云的    
+#如果没有vpn 建议安装阿里云的 
+
 yum-config-manager \
  --add-repo \
  http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+ 
 #更新yum 索引安装包
+
 yum makecache fast 
 
 第四步# 安装docker相关的
+
  yum install docker-ce docker-ce-cli containerd.io (可能会出错，多试几次)
+ 
  第五步启动docker 服务
+ 
  systemctl start docker
+ 
  #查看docker 是否安装完成
+ 
  docker --version
+ 
  第六步 hello world 
+ 
  docker run hello-world
+ 
 #查看所有的docker 镜像
+
  docker images
 
 docker search aspnet
+
 docker pull mcr.microsoft.com/dotnet/core/aspnet:latest
 
+
 第二章、Docker 卸载
+
 # 卸载依赖
+
 yum remove docker-ce docker-ce-cli containerd.io
+
 # 删除资源
+
 rm -rf /var/lib/docker
 
+
 第三章、Docker镜像相关指令
+
 1  docker镜像基本命令：
+
 查看所有镜像
+
  docker images
+ 
 REPOSITORY：表示镜像的仓库源
+
 TAG：镜像的标签
+
 IMAGE ID：镜像ID
+
 CREATED：镜像创建时间
+
 SIZE：镜像大小
 
 获取新的镜像：
+
 docker pull 名称
+
 查找镜像
+
 docker search httpd
+
 NAME: 镜像仓库源的名称
+
 DESCRIPTION: 镜像的描述
+
 OFFICIAL: 是否 docker 官方发布
+
 stars: 类似 Github 里面的 star，表示点赞、喜欢的意思。
+
 AUTOMATED: 自动构建。
 
 
 删除镜像(会提示先停止使用中的容器) 
+
 docker rmi  镜像name/镜像id
 
 创建镜像
+
 使用 Dockerfile 指令来创建一个新的镜像
+
  docker build ， 从零开始来创建一个新的镜像。为此，我们需要创建一个 Dockerfile 文件，其中包含一组指令来告诉 Docker 如何构建我们的镜像。
+ 
 更新镜像
+
 1  运行的容器
+
 2  docker exec -it fd2c868cadlc /bin/bash   进入容器操作
+
 3  apt-get update
+
 4  exit
+
 5  docker commit 来提交容器副本
+
 docker commit -m="nginx has update0618" -a="eleven" 79323dxds323 nginx-8081-8082:vCustom2
+
 -m: 提交的描述信息
+
 -a: 指定镜像作者
+
 79323dxds323：容器 ID
+
 nginx-8081-8082:vCustom2: 指定要创建的目标镜像名-tag
 
 (要点时间)
 设置镜像标签
+
 docker tag 命令，为镜像添加一个新的标签。
+
 docker tag 860c279d2fec runoob/centos:dev
+
 docker tag 镜像ID，这里是 860c279d2fec ,用户名称、镜像源名(repository name)和新的标签名(tag)。
 
 
 第四章、 Docker容器基本命令
+
 查看全部命令
 docker
+
 具体命令详情 docker ps –help
+
 启动容器  docker run -it nginx /bin/bash
+
 -i: 交互式操作。
+
 -t: 终端。
+
 -d 后台运行
+
 nginx: nginx镜像。
+
 /bin/bash：放在镜像名后的是命令，这里我们希望有个交互式 Shell，因此用的是 /bin/bash。(exit 退出终端)
 
 容器实例基本操作
@@ -118,19 +181,27 @@ docker
 删除容器 docker rm  -f 容器name/容器id 
 
 #删除镜像
+
 docker rmi -f 镜像id (可以根据 docker images 查询)
+
 docker rmi -f $(docker images) --删除所有镜像
+
 #查询docker 的详细信息
+
 docker stats dockerid
 
 查看 Docker 的底层信息
+
  docker inspect 来查看 Docker 的底层信息
 
 二、停止一个正在运行的容器 
+
 1、docker stop 此方式常常被翻译为优雅的停止容器
 
 docker stop 容器ID或容器名 
+
 参数 -t：关闭容器的限时，如果超时未能关闭则用kill强制关闭，默认值10s，这个时间用于容器的自己保存状态 
+
 docker stop -t=60 容器ID或容器名
 
 2、docker kill
@@ -138,24 +209,37 @@ docker stop -t=60 容器ID或容器名
 docker kill 容器ID或容器名 :直接关闭容器
 
 由此可见stop和kill的主要区别:stop给与一定的关闭时间交由容器自己保存状态，kill直接关闭容器
+
 想更进一步了解处理机制的可以看下面这篇文章，比较详细但是需要其他方面的 
 
 1.停用全部运行中的容器:
+
 docker stop $(docker ps -q)
 
 2.删除全部容器：
+
 docker rm $(docker ps -aq)
 
 3.一条命令实现停用并删除容器：
+
 docker stop $(docker ps -q) & docker rm $(docker ps -aq)
+
 容器导入导出
+
 导出容器
+
 如果要导出本地某个容器，可以使用 docker export 命令。
+
 docker export 1e560fca3906 > nginx.tar
+
 导入容器快照
+
 可以使用 docker import 从容器快照文件中再导入为镜像
+
 $ cat docker/ubuntu.tar | docker import - test/ubuntu:v1
+
 也可以通过指定 URL 或者某个目录来导入
+
 $ docker import http://example.com/exampleimage.tgz example/imagerepo
 
 
