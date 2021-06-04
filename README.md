@@ -1,103 +1,5 @@
 # LC_MyDocker
 
-
-
-
-目录
-第一章、Docker 安装	4
-第一步 卸载旧的安装包	4
-第二步  安装需要的安装包	4
-第三步 设置镜像的仓库	4
-第四步# 安装docker相关的	4
-第五步启动docker 服务	5
-第六步 hello world	5
-第二章、Docker 卸载	5
-# 卸载依赖	5
-# 删除资源	5
-第三章、Docker镜像相关指令	5
-1  docker镜像基本命令：	5
-查看所有镜像	5
-docker images	5
-获取新的镜像：	6
-查找镜像	6
-删除镜像(会提示先停止使用中的容器)	6
-创建镜像	6
-更新镜像	6
-设置镜像标签	7
-第四章、 Docker容器基本命令	7
-查看全部命令	7
-容器实例基本操作	7
-容器导入导出	9
-第五章、Docker 仓库管理	9
-1 注册-登录	9
-2 DockerHub基本操作	9
-第六章、Dockerfile指令	10
-FROM：指定基础镜像，必须为第一个命令	10
-MAINTAINER: 维护者信息	10
-RUN：构建镜像时执行的命令	10
-ADD命令	11
-COPY：	11
-CMD：	11
-ENTRYPOINT：	12
-LABEL：	13
-ENV：	13
-EXPOSE：	13
-VOLUME：	14
-WORKDIR：	14
-USER:	15
-ARG：	15
-ONBUILD：	16
-第七章、Docker Compose	16
-Compose 简介	16
-Compose 安装	16
-yml 配置指令参考	17
-version	17
-build	17
-cap_add，cap_drop	18
-cgroup_parent	18
-command	18
-container_name	18
-depends_on	19
-deploy	19
-devices	22
-dns	22
-dns_search	22
-entrypoint	23
-env_file	23
-environment	23
-expose	24
-extra_hosts	24
-healthcheck	24
-image	24
-logging	25
-network_mode	25
-restart	26
-secrets	26
-security_opt	27
-stop_grace_period	27
-stop_signal	27
-sysctls	27
-tmpfs	28
-ulimits	28
-volumes	28
-Swarm 集群管理	29
-简介	29
-原理	29
-使用	30
-1、创建 swarm 集群管理节点（manager）	30
-2、创建 swarm 集群工作节点（worker）	31
-3、查看集群信息	32
-4、部署服务到集群中	33
-5、查看服务部署情况	33
-6、扩展集群服务	34
-7、删除服务	34
-8、滚动升级服务	34
-9、停止某个节点接收新的任务	35
-
-
-
-
-
 第一章、Docker 安装
 
 #在root 用户下
@@ -138,6 +40,7 @@ yum makecache fast
 
 docker search aspnet
 docker pull mcr.microsoft.com/dotnet/core/aspnet:latest
+
 第二章、Docker 卸载
 # 卸载依赖
 yum remove docker-ce docker-ce-cli containerd.io
@@ -188,6 +91,8 @@ docker commit -m="nginx has update0618" -a="eleven" 79323dxds323 nginx-8081-8082
 docker tag 命令，为镜像添加一个新的标签。
 docker tag 860c279d2fec runoob/centos:dev
 docker tag 镜像ID，这里是 860c279d2fec ,用户名称、镜像源名(repository name)和新的标签名(tag)。
+
+
 第四章、 Docker容器基本命令
 查看全部命令
 docker
@@ -271,6 +176,8 @@ docker search nginx
 docker pull nginx
 推送镜像
 docker push nginx-8081-8082:vCustom2（权限没成功）
+
+
 第六章、Dockerfile指令
 FROM：指定基础镜像，必须为第一个命令
 
@@ -776,7 +683,8 @@ services:
       - "/localhost/postgres.sock:/var/run/postgres/postgres.sock"
       - "/localhost/data:/var/lib/postgresql/data"
 
-Swarm 集群管理
+ 
+第八章、Swarm 集群管理
 简介
 Docker Swarm 是 Docker 的集群管理工具。它将 Docker 主机池转变为单个虚拟 Docker 主机。 Docker Swarm 提供了标准的 Docker API，所有任何已经与 Docker 守护程序通信的工具都可以使用 Swarm 轻松地扩展到多个主机。
 支持的工具包括但不限于以下各项：
