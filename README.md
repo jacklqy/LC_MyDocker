@@ -250,9 +250,9 @@ $ docker import http://example.com/exampleimage.tgz example/imagerepo
 # 第五章、Docker 仓库管理
 1 注册-登录
 https://hub.docker.com
-eleven202001
-eleven202001
-xuyang@ZhaoxiEdu.Net
+XXX202001
+XXX202001
+XXX@qq.com
 2 DockerHub基本操作
 docker login
 登录
