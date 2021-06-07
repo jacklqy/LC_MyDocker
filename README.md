@@ -854,3 +854,4 @@ docker@swarm-manager:~$ docker node ls
 可以通过以下命令重新激活节点：
 docker@swarm-manager:~$  docker node update --availability active swarm-worker1
 
+希望为.net开源社区尽绵薄之力，探lu者###一直在探索前进的路上###（QQ:529987528）
