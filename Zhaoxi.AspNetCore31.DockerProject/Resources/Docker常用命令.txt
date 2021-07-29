@@ -1,0 +1,109 @@
+Docker启动、重启、关闭命令
+Docker服务自动重启设置
+systemctl enable docker.service
+
+启动Docker
+systemctl start docker
+
+守护进程重启
+sudo systemctl daemon-reload
+
+重启Docker服务
+systemctl restart docker
+sudo service docker restart
+
+关闭Docker
+service docker stop
+systemctl stop docker
+
+批量启动 Docker 容器
+docker start $(docker ps -aq) # 启动所有容器
+docker start $(docker ps -aq -f status=exited) # 启动所有状态为exited 的容器，和上面的命令效果一致
+
+
+Docker相关常用命令
+容器操作相关：
+查询容器信息
+docker inspect 容器id
+
+停止容器id
+docker stop 容器id
+
+删除容器id （谨慎）
+docker rm 容器id
+
+重启docker容器
+systemctl restart docker
+
+进入容器
+docker exec -it 容器ID /bin/bash
+发生异常：OCI runtime exec failed: exec failed: container_linux.go:344: starting container process caused "exe
+原因：是由于在docker中没有base命令，可以将base改为sh
+解决：docker exec -it 容器ID sh
+
+删除所有未运行的容器(慎重，创建的容器删除了，里面的数据也就没有了)
+docker rm $(sudo docker ps -a -q)
+删除所有容器
+docker rm -f $(docker ps -qa)
+
+搜索镜像文件
+docker search elasticsearch
+
+创建并启动一个容器，在run后面加上-d参数，则会创建一个守护式容器在后台运行。
+docker run -d --name jenkins -p 8081:8080 -v /home/jenkins_home:/home/jenkins_home jenkins
+-d ：表示后台运行一个容器
+–name jenkins ：指定容器的名字为jenkins，等价于docker ps 查看到的names属性
+-p 8081:8080 : 服务器端口与容器内部端口映射；表示服务器端口和jenkins在docker容器内部使用的端口映射，浏览器访问时直接访问外部端口
+其中8081：8080，表示jenkins内部使用8080端口，服务器使用8081端口，然后将二者映射起来，之后在浏览器访问的时候实际上还是访问服务器的8081端口
+容器的端口映射可以指定多个，例如 -p 8080:8080 -p 8081:8081
+jekins :启动的镜像为jenkins，根据此镜像创建容器并运行此应用程序。
+
+查看已经创建的容器
+docker ps -a
+
+查看已经启动的容器
+docker ps -s
+docker ps
+
+启动容器名为con_name的容器
+docker start con_name
+
+停止容器名为con_name的容器
+docker stop con_name
+
+删除容器名为con_name的容器
+docker rm con_name
+
+重命名一个容器
+docker rename old_name new_name
+
+将终端附着到正在运行的容器名为con_name的容器的终端上面去，前提是创建该容器时指定了相应的sh
+docker attach con_name
+
+查询容器日志信息
+docker logs --tail="10" 容器名称
+
+查看容器的内部端口与服务器的端口映射
+docker port 容器id
+
+对镜像重启 imageid:容器id
+docker restart imageid
+
+
+在docker容器中vim指令找不到
+apt-get update 这个命令的作用是：同步 /etc/apt/sources.list 和 /etc/apt/sources.list.d 中列出的源的索引，这样才能获取到最新的软件包
+等更新完毕以后再敲命令：apt-get install vim命令即可。
+Centos安装 yum install iproute iproute-doc
+Ubuntu安装 apt-get install iproute iproute-doc
+
+
+防火墙相关（扩展）：
+关闭防火墙
+systemctl stop firewalld.service
+禁止防火墙开机自启
+systemctl disable firewalld.service
+设置防火墙开机自启（默认）
+systemctl enable firewalld
+查看防火墙自动启动状态
+systemctl is-enabled firewalld
+
